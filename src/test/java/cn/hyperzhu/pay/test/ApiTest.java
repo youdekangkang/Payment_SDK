@@ -55,7 +55,7 @@ public class ApiTest {
 
         Response<Object> response = call.execute();
 //        Object object = response.body();
-//        response.raw()
+
 //        log.info("测试结果:{}", JSON.toJSONString(object));
 
     }
