@@ -1,6 +1,7 @@
 package cn.hyperzhu.pay.test;
 
 import cn.hyperzhu.pay.payments.nativepay.INativePayApi;
+import cn.hyperzhu.pay.payments.nativepay.model.PrepayResponse;
 import cn.hyperzhu.pay.utils.SignUtils;
 import com.alibaba.fastjson.JSON;
 import okhttp3.OkHttpClient;
@@ -44,7 +45,7 @@ public class ApiTest {
         dataMap.put("notify_url", "");
 
 
-        Call<Object> call = nativePayApi.prepay(
+        Call<PrepayResponse> call = nativePayApi.prepay(
                 dataMap.get("mch_id"),
                 dataMap.get("out_trade_no"),
                 dataMap.get("total_fee"),
@@ -53,7 +54,7 @@ public class ApiTest {
                 dataMap.get("notify_url"),
                 SignUtils.createSign(dataMap, "6d3e889f359fcb83d150e9553a9217b9"));
 
-        Response<Object> response = call.execute();
+        Response<PrepayResponse> response = call.execute();
 //        Object object = response.body();
 
 //        log.info("测试结果:{}", JSON.toJSONString(object));
