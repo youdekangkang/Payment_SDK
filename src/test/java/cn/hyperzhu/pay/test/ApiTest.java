@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.sun.javafx.webkit.InputMethodClientImpl.log;
+
 public class ApiTest {
     public static void main(String[] args) {
         System.out.println("");
@@ -55,7 +57,7 @@ public class ApiTest {
                 SignUtils.createSign(dataMap, "6d3e889f359fcb83d150e9553a9217b9"));
 
         Response<PrepayResponse> response = call.execute();
-//        Object object = response.body();
+        Object object = response.body();
 
 //        log.info("测试结果:{}", JSON.toJSONString(object));
 
