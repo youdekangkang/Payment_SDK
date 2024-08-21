@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.sun.javafx.webkit.InputMethodClientImpl.log;
 
 public class ApiTest {
     public static void main(String[] args) {

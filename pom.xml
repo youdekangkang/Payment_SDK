@@ -7,6 +7,7 @@
     <groupId>cn.hyperzhu</groupId>
     <artifactId>Payment_SDK</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <name>Payment SDK</name>
     <description>A Basic Payment SDK based on Lan Tu Platform</description>
 
