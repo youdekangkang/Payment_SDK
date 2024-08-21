@@ -1,38 +1,45 @@
-package cn.hyperzhu.pay.payments.nativepay;
+package cn.hyperzhu.pay.payments.h5;
 
 import cn.hyperzhu.pay.factory.Configuration;
-import cn.hyperzhu.pay.payments.nativepay.model.*;
+import cn.hyperzhu.pay.payments.h5.model.*;
 import retrofit2.Call;
-import retrofit2.Response;
 
-public class NativePayService {
+public class H5PayService {
 
     private final Configuration configuration;
-    private final INativePayApi nativePayApi;
+    private final IH5PayApi h5PayApi;
 
-    public NativePayService(Configuration configuration, INativePayApi nativePayApi) {
+    public H5PayService(Configuration configuration, IH5PayApi h5PayApi) {
         this.configuration = configuration;
-        this.nativePayApi = nativePayApi;
+        this.h5PayApi = h5PayApi;
     }
 
+    /**
+     * 扫码支付，创建订单
+     *
+     * @param request 请求入参
+     * @return 支付订单，含支付地址和图片
+     * @throws Exception 异常
+     */
     public PrepayResponse prepay(PrepayRequest request) throws Exception {
         // 1. 请求接口 & 签名
-        Call<PrepayResponse> call = nativePayApi.prepay(
+        Call<PrepayResponse> call = h5PayApi.prepay(
                 request.getMchid(),
                 request.getOutTradeNo(),
                 request.getTotalFee(),
                 request.getBody(),
                 request.getTimestamp(),
                 request.getNotifyUrl(),
+                request.getReturnUrl(),
+                request.getAttach(),
                 request.createSign(configuration.getPartnerKey()));
 
         // 2. 获取数据
-        Response<PrepayResponse> execute = call.execute();
+        retrofit2.Response<PrepayResponse> execute = call.execute();
 
         // 3. 返回结果
         return execute.body();
     }
-
 
     /**
      * 查询订单
@@ -43,7 +50,7 @@ public class NativePayService {
      */
     public QueryOrderByOutTradeNoResponse queryOrderByOutTradeNo(QueryOrderByOutTradeNoRequest request) throws Exception {
         // 1. 请求接口 & 签名
-        Call<QueryOrderByOutTradeNoResponse> call = nativePayApi.getPayOrder(
+        Call<QueryOrderByOutTradeNoResponse> call = h5PayApi.getPayOrder(
                 request.getMchid(),
                 request.getOutTradeNo(),
                 request.getTimestamp(),
@@ -65,7 +72,7 @@ public class NativePayService {
      */
     public RefundOrderResponse refundOrder(RefundOrderRequest request) throws Exception {
         // 1. 请求接口 & 签名
-        Call<RefundOrderResponse> call = nativePayApi.refundOrder(
+        Call<RefundOrderResponse> call = h5PayApi.refundOrder(
                 request.getMchid(),
                 request.getOutTradeNo(),
                 request.getOutRefundNo(),
@@ -90,7 +97,7 @@ public class NativePayService {
      */
     public GetRefundOrderResponse getRefundOrder(GetRefundOrderRequest request) throws Exception {
         // 1. 请求接口 & 签名
-        Call<GetRefundOrderResponse> call = nativePayApi.getRefundOrder(
+        Call<GetRefundOrderResponse> call = h5PayApi.getRefundOrder(
                 request.getMchid(),
                 request.getOutRefundNo(),
                 request.getTimestamp(),
@@ -103,6 +110,4 @@ public class NativePayService {
         return execute.body();
     }
 
-
 }
-
